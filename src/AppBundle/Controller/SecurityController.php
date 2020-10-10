@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+
 class SecurityController extends Controller{
 
 	/**
@@ -27,13 +30,25 @@ class SecurityController extends Controller{
 
 	 		$password=$passwordEncoder->encodePassword($user,$user->getPlainPassword());
 	 		$user->setPassword($password);
-	 		$roles = ['ROLE_ADMIN'];
+	 		$roles = ['ROLE_USER'];
 	 		$user->setRoles($roles);
 	 		//-------
 	 		$em=$this->getDoctrine()->getManager();
 	 		$em->persist($user);
 	 		$em->flush();
-	 		return $this->redirectToRoute('hellopage');
+
+	 		//tu dong login vao he thong
+	        // Here, "main" is the name of the firewall in your security.yml 
+	        $token = new UsernamePasswordToken($user, $user->getPassword(), "main", $user->getRoles());
+	        // For older versions of Symfony, use security.context here
+	        $this->get("security.token_storage")->setToken($token);
+	        // Fire the login event
+	        // Logging the user in above the way we do it doesn't do this automatically
+	        $event = new InteractiveLoginEvent($request, $token);
+	        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+	        return $this->redirectToRoute('hellopage');
+
 	 	}
 
 	 	return $this->render('@App/security/register.html.twig',['form'=>$form->createView()]); 
