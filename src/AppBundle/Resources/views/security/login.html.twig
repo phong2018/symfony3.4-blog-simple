@@ -1,0 +1,12 @@
+<form class="form-signin" action="{{ path('login') }}" method="post">
+    <input type="text" class="form-control" placeholder="Username" id="username" name="_username" value="{{ last_username }}" required autofocus />
+    <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required/>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign in</button>
+    {% if error %}
+        <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+    {% endif %}
+</form>
