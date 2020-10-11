@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -44,7 +45,9 @@ class CommentController extends Controller
     public function newAction(Request $request)
     {
         $comment = new Comment();
-        $form = $this->createForm('MainBundle\Form\CommentType', $comment);
+        $form = $this->createForm(CommentType::class, $comment);
+ 
+
         $form->remove('createdAt');
 
         $form->handleRequest($request);
@@ -56,7 +59,7 @@ class CommentController extends Controller
             $em->persist($comment);
             $em->flush($comment);
 
-            return $this->redirectToRoute('secure_comment_show', array('id' => $comment->getId()));
+            return $this->redirectToRoute('admin_comment_index');
         }
 
         return [

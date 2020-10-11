@@ -28,6 +28,15 @@ class CategoryController extends Controller
     public function indexAction()
     {
     	
+        /*$category = new Category();
+        $category->setCode('dm-7');
+        $category->setName('DM6');*/
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($category);
+        $em->flush($category);
+
+
     	$em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
@@ -57,6 +66,7 @@ class CategoryController extends Controller
             // Calculating the code for the URL
             $code = StringHelper::to_slug(strtolower($form->get('name')->getData()));
             //-------
+            $category= $form->getData();
             $category->setCode($code);
             $em->persist($category);
             $em->flush($category);

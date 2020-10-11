@@ -6,14 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommentType extends AbstractType
+class PostType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('comment')->add('approved')->add('user')->add('createdAt')->add('response')->add('post')        ;
+        $builder
+            ->add('title')
+            ->add('subtitle')
+            ->add('code')
+            ->add('author')
+            ->add('post')
+            ->add('image')
+            ->add('createdAt');
     }
     
     /**
@@ -22,7 +29,8 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Comment'
+            'data_class' => 'AppBundle\Entity\Post',
+            'allow_extra_fields' => true
         ));
     }
 
@@ -31,7 +39,7 @@ class CommentType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'AppBundle_comment';
+        return 'AppBundle_post';
     }
 
 

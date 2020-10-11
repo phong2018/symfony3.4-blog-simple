@@ -1,0 +1,53 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+    <h1>New Post</h1>
+
+    <div class="jumbotron">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            <div class="form-group">
+                <label class="col-md-2 control-label">Title</label>
+                <div class="col-md-10">
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'ex: How to build a new Symfony Blog'}}) }}
+                </div> 
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Subtitle</label>
+                <div class="col-md-10">
+                    {{ form_widget(form.subtitle, {'attr': {'class': 'form-control', 'placeholder': 'ex: Learn the fastest way'}}) }}
+                </div> 
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Author</label>
+                <div class="col-md-10">
+                    {{ form_widget(form.author, {'attr': {'class': 'form-control'}}) }}
+                </div> 
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Post</label>
+                <div class="col-md-10">
+                    {{ form_widget(form.post, {'attr': {'class': 'form-control', 'type':'textarea', 'placeholder': 'Ex: How to build a new Symfony Blog', 'style': 'height:300px;'}}) }}
+                </div> 
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Main Image URL</label>
+                <div class="col-md-10">
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                </div> 
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-2 control-label">Category</label>
+                <div class="col-md-10">
+                    <select id="AppBundle_post_category" name="AppBundle_post[category]" class="form-control" placeholder="Choose category"><option value=""></option><option value="7">danh mục 2</option><option value="8">danh mục 3</option><option value="9">danhmuc bốn</option><option value="10">danh mục 5</option><option value="11">DM6</option><option value="12">DM6</option></select>
+                </div>
+            </div>
+
+            {{ form_widget(form) }}
+            <a class="btn btn-default" href="{{ path('admin_post_index') }}">Back to the list</a>
+            <input class="btn btn-success" type="submit" value="Create" />
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

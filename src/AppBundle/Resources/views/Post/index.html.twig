@@ -1,0 +1,45 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+    <h1>Posts list</h1>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>Author</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td><a href=" ">{{ post.id }}</a></td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.subtitle }}</td>
+                    <td>{{ post.author }}</td>
+                    <td>{% if post.createdAt %}{{ post.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href= "">show</a>
+                            </li>
+                            <li>
+                                <a href=" ">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" href="{{path('admin_post_new')}}">Create a new post</a>
+    </div>
+{% endblock %}

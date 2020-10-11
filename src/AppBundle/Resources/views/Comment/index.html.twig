@@ -23,7 +23,12 @@
                     <td>{{ comment.comment }}</td>
                     <td>{% if comment.approved %}Yes{% else %}No{% endif %}</td>
                     <td>{{ comment.user }}</td>
-                    <td>{% if comment.createdAt %}{{ comment.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+
+                    <td>
+                    {% if comment.createdAt %}
+                    {{ comment.createdAt|date('Y-m-d H:i:s') }}
+                    {% endif %}</td>
+
                     <td>{{ comment.response }}</td>
                     <td>
                         <ul>
@@ -41,6 +46,6 @@
         </table>
     </div>
     <div>
-        <a class="btn btn-primary" href=" ">Create a new comment</a>
+        <a class="btn btn-primary" href="{{path('admin_comment_new')}}">Create a new comment</a>
     </div>
 {% endblock %}
